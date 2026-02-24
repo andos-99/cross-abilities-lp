@@ -636,6 +636,29 @@ a {
   margin-top: 4px;
 }
 
+.visit-flexible-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #fff8e1, #fff3cd);
+  border: 2px solid #f9a825;
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  margin-top: 12px;
+  font-size: 15px;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.visit-flexible-banner strong {
+  color: #e65100;
+}
+
+.visit-flexible-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
 .visit-cta-text {
   margin-bottom: 32px;
 }

@@ -1307,3 +1307,57 @@ a {
   color: #c0392b;
   border: 1px solid #e74c3c;
 }
+
+/* ===========================
+   修了生の声セクション
+   =========================== */
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+@media (max-width: 640px) {
+  .voices-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.voice-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  position: relative;
+  border-top: 4px solid #4caf82;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.voice-quote {
+  font-size: 3rem;
+  line-height: 1;
+  color: #4caf82;
+  font-family: Georgia, serif;
+  opacity: 0.5;
+  margin-bottom: -8px;
+}
+
+.voice-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #444;
+  flex: 1;
+}
+
+.voice-author {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: 600;
+  text-align: right;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 10px;
+  margin-top: 4px;
+}

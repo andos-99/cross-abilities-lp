@@ -23,31 +23,76 @@ document.addEventListener('DOMContentLoaded', function () {
   targets.forEach(el => observer.observe(el));
 
   // ===========================
-  // フォーム送信（デモ）
+  // Web3Forms フォーム送信処理
   // ===========================
-  function handleFormSubmit(formId, successMsg) {
+  function handleWeb3Form(formId, resultId, submitBtnId, successText) {
     const form = document.getElementById(formId);
+    const resultDiv = document.getElementById(resultId);
+    const submitBtn = document.getElementById(submitBtnId);
     if (!form) return;
-    form.addEventListener('submit', function (e) {
+
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]');
-      btn.textContent = '送信中...';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = '✓ ' + successMsg;
-        btn.style.background = '#4caf82';
-        btn.disabled = false;
-        form.reset();
-        setTimeout(() => {
-          btn.textContent = successMsg.includes('予約') ? '見学を予約する' : '送信する';
-          btn.style.background = '';
-        }, 4000);
-      }, 1000);
+
+      // ボタンを送信中に変更
+      submitBtn.textContent = '送信中...';
+      submitBtn.disabled = true;
+      resultDiv.style.display = 'none';
+      resultDiv.className = 'form-result';
+
+      const formData = new FormData(form);
+      const object = {};
+      formData.forEach((value, key) => {
+        object[key] = value;
+      });
+      const json = JSON.stringify(object);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: json
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // 送信成功
+          resultDiv.textContent = '✓ ' + successText;
+          resultDiv.classList.add('form-result-success');
+          resultDiv.style.display = 'block';
+          submitBtn.textContent = '✓ 送信完了';
+          submitBtn.style.background = '#4caf82';
+          form.reset();
+          setTimeout(() => {
+            submitBtn.textContent = formId === 'visit-form' ? '見学を予約する' : '送信する';
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+            resultDiv.style.display = 'none';
+          }, 5000);
+        } else {
+          // 送信失敗
+          resultDiv.textContent = '送信に失敗しました。お電話（092-791-7656）にてお問い合わせください。';
+          resultDiv.classList.add('form-result-error');
+          resultDiv.style.display = 'block';
+          submitBtn.textContent = formId === 'visit-form' ? '見学を予約する' : '送信する';
+          submitBtn.disabled = false;
+        }
+      } catch (error) {
+        resultDiv.textContent = '通信エラーが発生しました。お電話（092-791-7656）にてお問い合わせください。';
+        resultDiv.classList.add('form-result-error');
+        resultDiv.style.display = 'block';
+        submitBtn.textContent = formId === 'visit-form' ? '見学を予約する' : '送信する';
+        submitBtn.disabled = false;
+      }
     });
   }
 
-  handleFormSubmit('visit-form', '見学予約を受け付けました！');
-  handleFormSubmit('contact-form', 'お問い合わせを受け付けました！');
+  handleWeb3Form('visit-form', 'visit-result', 'visit-submit-btn', '見学予約を受け付けました！担当者よりご連絡いたします。');
+  handleWeb3Form('contact-form', 'contact-result', 'contact-submit-btn', 'お問い合わせを受け付けました！担当者よりご連絡いたします。');
 
   // ===========================
   // スムーズスクロール（ヘッダー高さ考慮）

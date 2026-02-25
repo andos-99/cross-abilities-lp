@@ -40,6 +40,10 @@
         <span>託児あり</span>
         <span>4月開講</span>
       </div>
+      <div class="hero-period">
+        <span class="hero-period-label">📅 訓練期間</span>
+        <span class="hero-period-date">令和8年4月21日（火）〜 10月20日（火）</span>
+      </div>
       <h1 class="hero-title">
         6か月で、<br>
         <em>"頼られる事務"</em>になる。
@@ -300,7 +304,11 @@
       <!-- 見学予約フォーム -->
       <div class="form-card">
         <h3 class="form-title">見学予約フォーム</h3>
-        <form class="contact-form" id="visit-form">
+        <form class="contact-form" id="visit-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="16ec7c01-0f68-4f52-8657-5783ba515fdb">
+          <input type="hidden" name="subject" value="【AI時代の事務スキル問い合わせ】見学予約が届きました">
+          <input type="hidden" name="from_name" value="クロスアビリティズ LPフォーム">
+          <input type="hidden" name="botcheck" value="" style="display:none">
           <div class="form-row">
             <div class="form-group">
               <label for="visit-name">お名前 <span class="required">必須</span></label>
@@ -316,14 +324,15 @@
             <input type="email" id="visit-email" name="email" placeholder="example@email.com">
           </div>
           <div class="form-group">
-            <label for="visit-date">ご希望の見学日（月曜日）</label>
-            <input type="date" id="visit-date" name="date">
+            <label for="visit-date">ご希望の見学日（ご都合に合わせて調整します）</label>
+            <input type="date" id="visit-date" name="visit_date">
           </div>
           <div class="form-group">
             <label for="visit-message">ご質問・ご要望</label>
             <textarea id="visit-message" name="message" rows="3" placeholder="お気軽にどうぞ"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-full">見学を予約する</button>
+          <div id="visit-result" class="form-result" style="display:none"></div>
+          <button type="submit" class="btn btn-primary btn-full" id="visit-submit-btn">見学を予約する</button>
         </form>
       </div>
     </div>
@@ -374,7 +383,11 @@
       <div class="contact-wrap">
         <div class="form-card">
           <h3 class="form-title">お問い合わせフォーム</h3>
-          <form class="contact-form" id="contact-form">
+          <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="16ec7c01-0f68-4f52-8657-5783ba515fdb">
+            <input type="hidden" name="subject" value="【AI時代の事務スキル問い合わせ】お問い合わせが届きました">
+            <input type="hidden" name="from_name" value="クロスアビリティズ LPフォーム">
+            <input type="hidden" name="botcheck" value="" style="display:none">
             <div class="form-row">
               <div class="form-group">
                 <label for="c-name">お名前 <span class="required">必須</span></label>
@@ -393,7 +406,8 @@
               <label for="c-message">ご質問内容</label>
               <textarea id="c-message" name="message" rows="4" placeholder="例：託児サービスについて詳しく教えてください。"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary btn-full">送信する</button>
+            <div id="contact-result" class="form-result" style="display:none"></div>
+            <button type="submit" class="btn btn-primary btn-full" id="contact-submit-btn">送信する</button>
           </form>
         </div>
 

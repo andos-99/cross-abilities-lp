@@ -195,6 +195,13 @@ a {
 .header-logo {
   display: flex;
   flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header-logo:hover {
+  opacity: 0.85;
+  text-decoration: none;
 }
 
 .logo-mark {
